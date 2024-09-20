@@ -25,15 +25,15 @@ function validateVin(vinParam: string): Result<string> {
       );
     }
 
+    if (vin.includes("O") || vin.includes("Q") || vin.includes("I")) {
+      return Result.error("VIN can't include invalid characters, i.e. I, O, Q");
+    }
+
     const validCharacters = /^[A-HJ-NPR-Z0-9]+$/;
     if (!validCharacters.test(vin)) {
       return Result.error(
         "VIN contains invalid characters. Only alphanumeric characters are allowed, which means A-H, J-N, P-R, and 0-9."
       );
-    }
-
-    if (vin.includes("O") || vin.includes("Q") || vin.includes("I")) {
-      return Result.error("VIN can't include invalid characters, i.e. I, O, Q");
     }
 
     const currentCheckDigit = vin[8];
